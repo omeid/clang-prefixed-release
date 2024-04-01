@@ -26,7 +26,7 @@ pkgdesc="Up to date official clang releases installed at /opt/clang/latest to av
 source=("https://github.com/llvm/llvm-project/releases/download/llvmorg-${_pkgver_dash_suffix}/llvm-project-${_pkgver_suffix}.src.tar.xz")
 sha512sums=('a0d01b018abbdf1609abc7b63911bb4c6c3619b748a0616b66be0843fcaa4240868412c5d1f77fe6dafdfed665b46570e7ce615da58efcaa91e9ddc8481e6fc4')
 install=clang.install
-static_build=false
+static_build=true
 build_with_gcc=false
 
 prefix_path="/opt/clang"
@@ -46,7 +46,6 @@ enable_all_projects_minus_libc="-DLLVM_ENABLE_PROJECTS=bolt;clang;clang-tools-ex
 build_with_clang_options=" \
 			-DLLVM_BINUTILS_INCDIR=/usr/include \
             -DLLVM_ENABLE_LLD=ON \
-			-DLLVM_ENABLE_MODULES=ON \
             -DLLVM_ENABLE_LTO=Thin \
             -DCMAKE_C_COMPILER=clang \
             -DCMAKE_CXX_COMPILER=clang++ \

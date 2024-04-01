@@ -1,5 +1,8 @@
 # Maintainer: Donald Carr <sirspudd at gmail dot com>
 
+# lto breaks build with gcc
+# module support seem prone to breakage
+
 pkgname=('clang-prefixed-release')
 #pkgver=15.0.7
 _pkgver=18.1.2
@@ -11,7 +14,7 @@ if [[ -n ${_pkg_suffix} ]]; then
     _pkgver_dash_suffix=${_pkgver_dash_suffix}-${_pkg_suffix}
 fi
 pkgver=${_pkgver_suffix}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://llvm.org/"
 license=('custom:Apache 2.0 with LLVM Exception')
@@ -26,7 +29,7 @@ pkgdesc="Up to date official clang releases installed at /opt/clang/latest to av
 source=("https://github.com/llvm/llvm-project/releases/download/llvmorg-${_pkgver_dash_suffix}/llvm-project-${_pkgver_suffix}.src.tar.xz")
 sha512sums=('a0d01b018abbdf1609abc7b63911bb4c6c3619b748a0616b66be0843fcaa4240868412c5d1f77fe6dafdfed665b46570e7ce615da58efcaa91e9ddc8481e6fc4')
 install=clang.install
-static_build=true
+static_build=false
 build_with_gcc=false
 
 prefix_path="/opt/clang"

@@ -5,7 +5,7 @@
 
 pkgname=('clang-prefixed-release')
 #pkgver=15.0.7
-_pkgver=18.1.4
+_pkgver=18.1.8
 _pkg_suffix=
 _pkgver_suffix=${_pkgver}
 _pkgver_dash_suffix=${_pkgver}
@@ -25,9 +25,8 @@ checkdepends=("python-psutil")
 pkgdesc="Up to date official clang releases installed at /opt/clang/latest to avoid system wide usage/impact"
 
 # stable
-#source=("https://github.com/llvm/llvm-project/releases/download/llvmorg-${pkgver}/llvm-project-${pkgver}.src.tar.xz")
-source=("https://github.com/llvm/llvm-project/releases/download/llvmorg-${_pkgver_dash_suffix}/llvm-project-${_pkgver_suffix}.src.tar.xz")
-sha512sums=('b1b214ae91f3705d8ea345547ad53f1e5d7d884c1eb6958bc41c14ac4b3e407771ccc2b693686ff103c8232c2c3942731d6db9a9cb4f735e6c6a0674739d0b29')
+source=("https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-${_pkgver}.tar.gz")
+sha512sums=('a2b5e4d52dbddc47b4e10e3c8acb1b04b7ef97b723d160d591cb83ccff6edc0433a2dbca55074d42b533b406647b34dc0df1791b6a33879902addbe67735d1cc')
 install=clang.install
 static_build=false
 build_with_gcc=false
@@ -104,7 +103,7 @@ build() {
             -DCMAKE_INSTALL_PREFIX:PATH=${install_path} \
             -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;libunwind" \
 			${additional_build_options} \
-            ${srcdir}/llvm-project-${_pkgver_suffix}.src/llvm | tee ${pkgname}-configure.log
+            ${srcdir}/llvm-project-llvmorg-${_pkgver}/llvm | tee ${pkgname}-configure.log
 	time ninja -C _build | tee ${pkgname}-build.log
 	)
 	#perf record -e cycles:u -j any,u -- ninja -C _build

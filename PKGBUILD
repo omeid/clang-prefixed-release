@@ -14,13 +14,13 @@ if [[ -n ${_pkg_suffix} ]]; then
     _pkgver_dash_suffix=${_pkgver_dash_suffix}-${_pkg_suffix}
 fi
 pkgver=${_pkgver_suffix}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://llvm.org/"
 license=('custom:Apache 2.0 with LLVM Exception')
 makedepends=('git' 'cmake' 'ninja' 'libffi' 'libedit' 'ncurses' 'libxml2'
              'swig' 'lld' 'python' 'libc++'
-             'ocl-icd' 'opencl-headers' 'z3' 'jsoncpp' 'clang')
+             'ocl-icd' 'opencl-headers' 'z3' 'jsoncpp' 'clang' 'libunwind')
 checkdepends=("python-psutil")
 pkgdesc="Up to date official clang releases installed at /opt/clang/latest to avoid system wide usage/impact"
 

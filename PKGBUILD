@@ -3,10 +3,13 @@
 # lto breaks build with gcc
 # module support seem prone to breakage
 
+# I run out of memory when compiling with ninja on a 7950x with 64G of ram
+# I constrain the build with taskset --cpu-list 2-27 makepkg
+
 pkgname=('clang-prefixed-release')
 #pkgver=15.0.7
-_pkgver=18.1.8
-_pkg_suffix=
+_pkgver=19.1.0
+_pkg_suffix=rc1
 _pkgver_suffix=${_pkgver}
 _pkgver_dash_suffix=${_pkgver}
 if [[ -n ${_pkg_suffix} ]]; then
@@ -25,11 +28,11 @@ checkdepends=("python-psutil")
 pkgdesc="Up to date official clang releases installed at /opt/clang/latest to avoid system wide usage/impact"
 
 # stable
-source=("https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-${_pkgver}.tar.gz")
-sha512sums=('a2b5e4d52dbddc47b4e10e3c8acb1b04b7ef97b723d160d591cb83ccff6edc0433a2dbca55074d42b533b406647b34dc0df1791b6a33879902addbe67735d1cc')
+source=("https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-${_pkgver_dash_suffix}.tar.gz")
+sha512sums=('ccc86ae51981e5e339ae93f735787f43b5eae809b3119422544ae7c246b2455ac7914ea15e881854b4b16e41de6a5b07e4e2c87b7dc630c181a722a113a7e373')
 install=clang.install
 static_build=false
-build_with_gcc=false
+build_with_gcc=true
 
 prefix_path="/opt/clang"
 install_path="${prefix_path}/${pkgver}"
@@ -103,7 +106,7 @@ build() {
             -DCMAKE_INSTALL_PREFIX:PATH=${install_path} \
             -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;libunwind" \
 			${additional_build_options} \
-            ${srcdir}/llvm-project-llvmorg-${_pkgver}/llvm | tee ${pkgname}-configure.log
+            ${srcdir}/llvm-project-llvmorg-${_pkgver_dash_suffix}/llvm | tee ${pkgname}-configure.log
 	time ninja -C _build | tee ${pkgname}-build.log
 	)
 	#perf record -e cycles:u -j any,u -- ninja -C _build

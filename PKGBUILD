@@ -9,7 +9,7 @@
 pkgname=('clang-prefixed-release')
 #pkgver=15.0.7
 _pkgver=19.1.0
-_pkg_suffix=rc3
+_pkg_suffix=
 _pkgver_suffix=${_pkgver}
 _pkgver_dash_suffix=${_pkgver}
 if [[ -n ${_pkg_suffix} ]]; then
@@ -17,7 +17,7 @@ if [[ -n ${_pkg_suffix} ]]; then
     _pkgver_dash_suffix=${_pkgver_dash_suffix}-${_pkg_suffix}
 fi
 pkgver=${_pkgver_suffix}
-pkgrel=2
+pkgrel=1
 arch=('x86_64')
 url="https://llvm.org/"
 license=('custom:Apache 2.0 with LLVM Exception')
@@ -29,7 +29,7 @@ pkgdesc="Up to date official clang releases installed at /opt/clang/latest to av
 
 # stable
 source=("https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-${_pkgver_dash_suffix}.tar.gz")
-sha512sums=('f915d2c6122d1ab1ab6fa2ed02ffd8c3c04937f593cf017a555edf6b9df7af779d9f8cd02e09ecb345b777e75880f5a844991da23b6037f1dcd565d1232a7a22')
+sha512sums=('0287c57fddb414ca955982f22e09609cc2e88d2be367b703fa8d641433eba13b17eb2c58f584a88bd8949bfb5988a0f634c3567ae2a8e49242d54265bd87c5b4')
 install=clang.install
 static_build=false
 build_with_gcc=false

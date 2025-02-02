@@ -8,8 +8,8 @@
 
 pkgname=('clang-prefixed-release')
 #pkgver=15.0.7
-_pkgver=19.1.7
-_pkg_suffix=
+_pkgver=20.1.0
+_pkg_suffix=rc1
 _pkgver_suffix=${_pkgver}
 _pkgver_dash_suffix=${_pkgver}
 if [[ -n ${_pkg_suffix} ]]; then
@@ -29,7 +29,7 @@ pkgdesc="Up to date official clang releases installed at /opt/clang/latest to av
 
 # stable
 source=("https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-${_pkgver_dash_suffix}.tar.gz")
-sha512sums=('775a3f7cdcc71c7a104f25d33094d82534f4d9fe0a227adeab12c51d3d579f7fdae2b8ba78c9c30b59ee55934d542241c8d2a090215adf14678354bd83aec9c7')
+sha512sums=('af4c5d26a96492aff8d391d033067d298cc265bdbe64df2445a50e9a3c72a23c189543e0415f76ded78f5f6b0540587218f03124833e0780a706a95ada7e48c2')
 install=clang.install
 static_build=false
 build_with_gcc=false

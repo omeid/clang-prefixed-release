@@ -55,7 +55,6 @@ build_with_clang_options=" \
             -DCMAKE_C_COMPILER=clang \
             -DCMAKE_CXX_COMPILER=clang++ \
             -DCMAKE_CXX_STANDARD=20 \
-            -DLLVM_ENABLE_MODULES=ON \
 			${enable_all_projects} \
 	"
 

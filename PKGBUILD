@@ -9,7 +9,7 @@
 pkgname=('clang-prefixed-release')
 #pkgver=15.0.7
 _pkgver=20.1.0
-_pkg_suffix=rc3
+_pkg_suffix=
 _pkgver_suffix=${_pkgver}
 _pkgver_dash_suffix=${_pkgver}
 if [[ -n ${_pkg_suffix} ]]; then
@@ -29,7 +29,7 @@ pkgdesc="Up to date official clang releases installed at /opt/clang/latest to av
 
 # stable
 source=("https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-${_pkgver_dash_suffix}.tar.gz")
-sha512sums=('77ace4f9dfa5850aa9f9b7d94bca6496e597e364cf6b200120bb73810833130d40d3261a93e6f4c44d5146b79029bf4471d664c9e758f81edc50f01e4dac4313')
+sha512sums=('9a26e5f6092c0b189b9f01c7da36d983a74308c2024d8506eb257c2c2445b8c92e3ca7d20db97c659f5f48b5633318f563d6f158267ff6a1d2c3582900f1a7b0')
 install=clang.install
 static_build=false
 build_with_gcc=false
@@ -45,7 +45,7 @@ shared_library_build_options=" \
 	"
 
 enable_all_projects_minus_libc="-DLLVM_ENABLE_PROJECTS=bolt;clang;clang-tools-extra;libclc;lld;lldb;openmp;polly;pstl;compiler-rt"
-#enable_all_projects="-DLLVM_ENABLE_PROJECTS=bolt;clang;clang-tools-extra;libc;libclc;lld;lldb;openmp;polly;pstl;compiler-rt"
+enable_all_projects="-DLLVM_ENABLE_PROJECTS=bolt;clang;clang-tools-extra;libc;libclc;lld;lldb;openmp;polly;pstl;compiler-rt"
 # both modules and thinlto barf with gcc
 # -DLLVM_ENABLE_MODULES=ON now barfs when compiling with clang 18, complaining about missing symbols
 build_with_clang_options=" \
@@ -54,7 +54,7 @@ build_with_clang_options=" \
             -DLLVM_ENABLE_LTO=Thin \
             -DCMAKE_C_COMPILER=clang \
             -DCMAKE_CXX_COMPILER=clang++ \
-			${enable_all_projects_minus_libc} \
+			${enable_all_projects} \
 	"
 
 additional_build_options=""

@@ -100,7 +100,7 @@ build() {
             -DLLVM_ABI_BREAKING_CHECKS:STRING=FORCE_OFF \
             -DLLVM_ENABLE_UNWIND_TABLES=OFF \
             -DLLVM_ENABLE_LIBCXX=ON \
-            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_BUILD_TYPE=MinSizeRel \
 			-DCMAKE_C_FLAGS_RELEASE="${CFLAGS}" \
 			-DCMAKE_CXX_FLAGS_RELEASE="${CXXFLAGS}" \
             -GNinja \

@@ -62,7 +62,7 @@ build_with_clang_options=" \
             -DCMAKE_C_COMPILER=clang \
             -DCMAKE_CXX_COMPILER=clang++ \
             -DCMAKE_CXX_STANDARD=20 \
-			${enable_all_projects_core} \
+			${enable_all_projects} \
 	"
 
 additional_build_options=""

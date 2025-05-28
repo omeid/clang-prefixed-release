@@ -8,7 +8,7 @@
 
 pkgname=('clang-prefixed-release')
 #pkgver=15.0.7
-_pkgver=20.1.5
+_pkgver=20.1.6
 _pkg_suffix=
 _pkgver_suffix=${_pkgver}
 _pkgver_dash_suffix=${_pkgver}
@@ -17,7 +17,7 @@ if [[ -n ${_pkg_suffix} ]]; then
     _pkgver_dash_suffix=${_pkgver_dash_suffix}-${_pkg_suffix}
 fi
 pkgver=${_pkgver_suffix}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://llvm.org/"
 license=('custom:Apache 2.0 with LLVM Exception')
@@ -29,7 +29,7 @@ pkgdesc="Up to date official clang releases installed at /opt/clang/latest to av
 
 # stable
 source=("https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-${_pkgver_dash_suffix}.tar.gz")
-sha512sums=('efbb7a42ddb3834237fe4f9f58fbd5ee413118a0c908ebfcce2f0e63482226a1c0246699d90b1a0bb9d9f83fe88f0d5d4e73939226d72fc4392efb71a26866f8')
+sha512sums=('fca91bdac354cba3c4f7aac5a14eb097c0aab6307e6f73e46abb5345499c86d3e11b8672a22c89606b1ac1e455f191a135ac9b1cb2954e5ef3911689735a7e73')
 install=clang.install
 static_build=false
 build_with_gcc=false
@@ -45,7 +45,13 @@ shared_library_build_options=" \
 	"
 
 enable_all_projects_minus_libc="-DLLVM_ENABLE_PROJECTS=bolt;clang;clang-tools-extra;libclc;lld;lldb;openmp;polly;pstl;compiler-rt"
+# real  19m27.622s
+# user  580m58.766s
+# sys  16m27.477s
 enable_all_projects="-DLLVM_ENABLE_PROJECTS=bolt;clang;clang-tools-extra;libc;libclc;lld;lldb;openmp;polly;pstl;compiler-rt"
+# real	14m10.929s
+# user	415m46.818s
+# sys	11m2.048s
 enable_all_projects_core="-DLLVM_ENABLE_PROJECTS=bolt;clang;lld"
 # both modules and thinlto barf with gcc
 # -DLLVM_ENABLE_MODULES=ON now barfs when compiling with clang 18, complaining about missing symbols

@@ -1,0 +1,44 @@
+name: Build clang-prefixed-release AUR package
+
+on:
+  workflow_dispatch: # Allows manual triggering from the GitHub UI
+  push:
+    branches:
+      - main # Or your default branch, e.g., master
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest # The host runner, which will spin up the Docker container
+
+    container: # This block specifies a Docker container to run the job within
+      image: archlinux/archlinux:latest # Use the official Arch Linux Docker image
+      options: --privileged # Some makepkg operations, especially dependency handling, might benefit from this, though not always strictly necessary for simple builds. It's safer for general AUR builds.
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup machine
+        run: |
+          pacman -Sy --noconfirm base-devel
+          useradd -m -G wheel builder
+          echo "builder ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builder
+          chmod 0440 /etc/sudoers.d/builder
+
+
+      - name: Inspect Container
+        run: env
+
+      - name: Build AUR package
+        run: |
+          chown -R builder:builder $GITHUB_WORKSPACE
+          sudo -u builder makepkg -s --noconfirm 
+
+          PACKAGE_BASENAME=$(find GITHUB_WORKSPACE -maxdepth 1 -name "*.pkg.tar.zst" -print -quit | xargs basename)
+          echo "PACKAGE_BASENAME=$PACKAGE_BASENAME" >> "$GITHUB_OUTPUT"
+
+      - name: Upload package as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: clang-prefixed-release-package
+          path: clang-prefixed-release/${{ steps.find_package.outputs.PACKAGE_BASENAME }}
